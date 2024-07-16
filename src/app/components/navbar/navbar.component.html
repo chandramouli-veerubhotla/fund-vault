@@ -1,0 +1,22 @@
+<footer class="w-full fixed bottom-0 border-t border-slate-300/50">
+    <div class="mx-auto container px-4 lg:px-6 text-black">
+        <div class="h-16 flex items-center justify-between">
+            <button routerLink="/funds" [routerLinkActive]="['text-blue-600']" class="flex flex-col items-center  text-sm font-medium text-center  hover:text-blue-600 ">
+                <span class="material-symbols-rounded">wallet</span>
+                My Funds
+            </button>
+            <button class="flex flex-col items-center  text-sm font-medium text-center  hover:text-blue-600 ">
+                <span class="material-symbols-rounded">function</span>
+                Calculators
+            </button>
+            <button class="flex flex-col items-center  text-sm font-medium text-center  hover:text-blue-600">
+                <span class="material-symbols-rounded">contract</span>
+                Transactions
+            </button>
+            <button routerLink="/profile" [routerLinkActive]="['text-blue-600']" class="flex flex-col items-center  text-sm font-medium text-center  hover:text-blue-600 ">
+                <span class="material-symbols-rounded">person</span>
+                My Profile
+            </button>
+        </div>
+    </div>    
+</footer>
