@@ -23,25 +23,24 @@
       <section class="mx-auto container px-4 lg:px-6 mb-6">
         <input class="mb-6 w-full px-5 py-4 rounded-lg bg-gray-200/70 focus:outline-none text-sm font-medium text-black"
           type="search" placeholder="Search here..." />
-        <h1 class="mb-4 text-lg font-bold text-blue-600 tracking-wide font-sans">My Funds</h1>
+        <h1 class="mb-4 text-2xl font-bold text-blue-600 tracking-wide font-sans">My Funds</h1>
       </section>
 
-      <app-fund-item />
-      <app-fund-item />
-      <app-fund-item />
-      <app-fund-item />
-      <app-fund-item />
-      <app-fund-item />
-      <app-fund-item />
-      <app-fund-item />
-      <app-fund-item />
-      <app-fund-item />
-      <app-fund-item />
-      <app-fund-item />
-      <app-fund-item />
-      <app-fund-item />
-      <app-fund-item />
-      <app-fund-item />
+      @for (fund of funds; track $index) {
+        <app-fund-item [fund]="fund"></app-fund-item>
+      }
+      @empty {
+        <section class="mx-auto container px-4 lg:px-6">
+          <div class="w-full flex items-center justify-center h-96">
+            <div class="text-center">
+              <div class="text-4xl font-bold text-black/70">No funds yet</div>
+              <div class="text-lg font-medium text-black/80">Create a new fund to get started</div>
+            </div>
+          </div>
+        </section>
+      }
+
+
 
     </section>
   </section>

@@ -9,7 +9,6 @@ export const dbConfig: DBConfig = {
       store: 'investments',
       storeConfig: { keyPath: 'id', autoIncrement: false },
       storeSchema: [
-        { name: 'id', keypath: 'id', options: { unique: true, defaultValue: () => uuidv4() } },
         { name: 'title', keypath: 'title', options: { unique: false } },
         { name: 'amount', keypath: 'amount', options: { unique: false } },
         { name: 'date', keypath: 'date', options: { unique: false } },
@@ -22,11 +21,11 @@ export const dbConfig: DBConfig = {
       store: 'funds',
       storeConfig: { keyPath: 'id', autoIncrement: false },
       storeSchema: [
-       // { name: 'id', keypath: 'id', options: { unique: true, defaultValue: () => uuidv4() } },
         { name: 'title', keypath: 'title', options: { unique: true } },
         { name: 'description', keypath: 'description', options: { unique: false } },
         { name: 'defaultAnnualInterestRate', keypath: 'defaultAnnualInterestRate', options: { unique: false } },
         { name: 'dateCreated', keypath: 'dateCreated', options: { unique: false } },
+        { name: 'lastUpdated', keypath: 'lastUpdated', options: { unique: false } },
       ]
     }
   ]

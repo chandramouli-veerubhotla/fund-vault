@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, AsyncValidatorFn, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { MatFormField } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Router, RouterLink } from '@angular/router';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { FundService } from '../../services/fund.service';
-import { catchError, debounceTime, distinctUntilChanged, first, map, Observable, of, switchMap, tap } from 'rxjs';
+import { catchError, debounceTime, first, map, Observable, of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-new-fund-page',
@@ -45,14 +45,12 @@ export class NewFundPageComponent {
       this.service.saveFund(this.form.value).subscribe({
         next: (resp: any) => {
         alert('Fund saved!');
+        this.form.reset();
+        this.router.navigate(['/funds']);
       },
       error: (err: any) => {  
         console.log(err)
         alert('Failed to save fund');
-      },
-      complete: () => {
-        this.form.reset();
-        this.router.navigate(['/funds']);
       }
     });
     }
