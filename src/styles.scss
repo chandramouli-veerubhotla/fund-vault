@@ -12,10 +12,17 @@
 .material-symbols-rounded {
   vertical-align: middle;
   font-variation-settings:
-  'FILL' 0,
+  'FILL' 1,
   'wght' 400,
   'GRAD' 0,
   'opsz' 24
+}
+
+.mat-bottom-sheet-container {
+  padding: 0;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  background: white;
 }
 
 html, body { height: 100%; }
