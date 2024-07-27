@@ -1,10 +1,10 @@
 <main class="w-full h-screen min-h-screen flex flex-col justify-between">
-  <header class="w-full bg-white border-b border-slate-200/50">
+  <header class="w-full bg-slate-900 border-b border-slate-200/50">
     <section class="mx-auto container px-4 lg:px-6">
       <nav class="h-16 flex items-center justify-between">
         <div class="flex items-center space-x-6">
-          <button routerLink="/" class="material-symbols-rounded hover:text-black/50 text-black">arrow_back</button>
-          <div class="text-xl font-medium text-black tracking-wider">New Fund</div>
+          <button routerLink="/" class="material-symbols-rounded hover:text-teal-400 text-white">arrow_back</button>
+          <div class="text-xl font-medium text-white tracking-wider">New Fund</div>
         </div>
       </nav>
     </section>
@@ -12,8 +12,10 @@
 
   <section class="flex-1 w-full mx-auto container px-4 lg:px-6 py-4">
     <form [formGroup]="form" class="w-full space-y-2">
+      
       <mat-form-field class="w-full my-4 font-medium" appearance="outline">
         <mat-label>Title</mat-label>
+        
         <input matInput formControlName="title" placeholder="Ex: Retirement fund">
         @if(titleControl?.hasError('uniqueTitleValidation') && titleControl?.touched) {
           <mat-hint class="text-sm text-red-700">Title already exits</mat-hint>

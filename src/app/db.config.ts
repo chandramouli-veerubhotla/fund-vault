@@ -1,19 +1,19 @@
 import { DBConfig } from 'ngx-indexed-db';
-import { v4 as uuidv4 } from 'uuid';
+
 
 export const dbConfig: DBConfig = {
   name: 'fundVault',
-  version: 1,
+  version: 2,
   objectStoresMeta: [
     {
       store: 'investments',
       storeConfig: { keyPath: 'id', autoIncrement: false },
       storeSchema: [
+        { name: 'fundId', keypath: 'fundId', options: { unique: false } },
         { name: 'title', keypath: 'title', options: { unique: false } },
         { name: 'amount', keypath: 'amount', options: { unique: false } },
         { name: 'date', keypath: 'date', options: { unique: false } },
-        { name: 'annualRate', keypath: 'annualRate', options: { unique: false } },
-        { name: 'frequency', keypath: 'frequency', options: { unique: false } },
+        { name: 'annualInterestRate', keypath: 'annualInterestRate', options: { unique: false } },
         { name: 'isCredit', keypath: 'isCredit', options: { unique: false } },
       ]
     },

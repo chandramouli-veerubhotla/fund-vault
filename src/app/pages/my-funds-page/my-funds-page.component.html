@@ -4,27 +4,21 @@
       <div class="fixed right-0 bottom-0 m-4 lg:m-6 mb-20 lg:mb-24 fltbtn mx-auto container px-4 lg:px-6">
         <div class="mx-auto container m-4 lg:m-6">
           <button routerLink="/new-fund"
-            class="float-end p-3 bg-blue-600 hover:bg-blue-500 text-white material-symbols-rounded rounded-lg shadow-xl">add</button>
+            class="float-end p-3 bg-slate-900 hover:bg-slate-800 text-white material-symbols-rounded rounded-lg shadow-xl">add</button>
         </div>
       </div>
-      <header class="w-full bg-white">
+      <header class="w-full sticky top-0 bg-slate-900 shadow-md">
         <section class="mx-auto container px-4 lg:px-6">
           <nav class="h-16 flex items-center justify-between">
-            <div class="text-2xl font-bold text-blue-600 tracking-wide">fund<span
-                class="font-light text-black">vault</span></div>
-            <div class="flex items-center space-x-4 lg:space-x-6 text-sm font-medium text-black">
-              <button class="material-symbols-rounded">notifications</button>
-              <button class="material-symbols-rounded">more_vert</button>
+            <div routerLink="/" class="cursor-pointer text-xl font-bold text-emerald-400 tracking-wide">fund<span
+                class="font-light text-white">vault</span></div>
+            <div class="flex items-center space-x-4 lg:space-x-6 text-sm font-medium text-white">
+              <button class="material-symbols-rounded hover:text-emerald-400">alarm</button>
+              <button class="material-symbols-rounded hover:text-emerald-400">menu</button>
             </div>
           </nav>
         </section>
       </header>
-
-      <section class="mx-auto container px-4 lg:px-6 mb-6">
-        <input class="mb-6 w-full px-5 py-4 rounded-lg bg-gray-200/70 focus:outline-none text-sm font-medium text-black"
-          type="search" placeholder="Search here..." />
-        <h1 class="mb-4 text-2xl font-bold text-blue-600 tracking-wide font-sans">My Funds</h1>
-      </section>
 
       @for (fund of funds; track $index) {
         <app-fund-item [fund]="fund"></app-fund-item>
@@ -39,9 +33,6 @@
           </div>
         </section>
       }
-
-
-
     </section>
   </section>
   <app-navbar />

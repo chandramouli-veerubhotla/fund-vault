@@ -21,7 +21,7 @@ export const routes: Routes = [
         title: 'fundvault | New Fund'
     },
     {
-        path: 'fund/:id',
+        path: 'fund/:fundId',
         component: FundPageComponent,
         title: 'fundvault | Fund Details'
     },

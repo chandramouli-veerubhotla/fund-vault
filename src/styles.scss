@@ -12,10 +12,14 @@
 .material-symbols-rounded {
   vertical-align: middle;
   font-variation-settings:
-  'FILL' 1,
   'wght' 400,
   'GRAD' 0,
   'opsz' 24
+}
+
+.symbols-filled {
+  font-variation-settings: 
+  'FILL'  1;
 }
 
 .mat-bottom-sheet-container {
@@ -26,4 +30,4 @@
 }
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0;  font-family: "Google Sans", "Poppins", sans-serif; }
