@@ -1,0 +1,26 @@
+<section class="w-full p-4">
+    <div class="flex items-center justify-center mb-3">
+        <button (click)="close(false)" class="p-2  hover:bg-slate-300 text-black rounded-full material-symbols-rounded">close</button>
+    </div>
+    <div class="w-full flex flex-col space-y-2">
+        <div class="text-center mb-4">
+            <div class="text-2xl font-bold text-slate-800">New Fund</div>
+            <p class="text-sm font-medium text-slate-500">
+                Your investment details are saved completely on your device, ensuring privacy.
+            </p>
+        </div>
+
+        <form class="text-sm font-medium space-y-3" [formGroup]="form" (ngSubmit)="newFund()">
+            <div class="space-y-1">
+                <input formControlName="title" class="w-full px-5 py-3 rounded-lg bg-slate-300/50 border border-slate-200/50 focus:outline-none text-sm font-medium text-black" type="text" autocomplete="off" placeholder="Enter Title">
+                @if(titleControl?.hasError('uniqueTitleValidation') && titleControl?.touched) {
+                    <div class="text-xs text-red-600">Title already exists</div>
+                  } 
+            </div>
+             <input formControlName="defaultAnnualInterestRate" class="w-full px-5 py-3 rounded-lg bg-slate-300/50 border border-slate-200/50 focus:outline-none text-sm font-medium text-black" type="number" placeholder="Default Annual Interest Rate (%)">
+            <textarea formControlName="description" class="w-full px-5 py-3 rounded-lg bg-slate-300/50 border border-slate-200/50 focus:outline-none text-sm font-medium text-black" type="text" placeholder="Description"></textarea>
+            <button type="submit" [disabled]="!form.valid" class="w-full py-3.5 bg-slate-900 hover:bg-slate-800 disabled:bg-slate-200 font-medium text-white rounded-lg">Create new fund</button>
+        </form>
+
+    </div>
+</section>

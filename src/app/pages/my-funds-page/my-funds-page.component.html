@@ -1,39 +1,44 @@
-<main class="relative w-full h-screen min-h-screen flex flex-col">
-  <section class="relative flex-1 pb-32">
-    <section class="w-full relative font-sans">
-      <div class="fixed right-0 bottom-0 m-4 lg:m-6 mb-20 lg:mb-24 fltbtn mx-auto container px-4 lg:px-6">
-        <div class="mx-auto container m-4 lg:m-6">
-          <button routerLink="/new-fund"
-            class="float-end p-3 bg-slate-900 hover:bg-slate-800 text-white material-symbols-rounded rounded-lg shadow-xl">add</button>
-        </div>
-      </div>
-      <header class="w-full sticky top-0 bg-slate-900 shadow-md">
-        <section class="mx-auto container px-4 lg:px-6">
-          <nav class="h-16 flex items-center justify-between">
-            <div routerLink="/" class="cursor-pointer text-xl font-bold text-emerald-400 tracking-wide">fund<span
-                class="font-light text-white">vault</span></div>
-            <div class="flex items-center space-x-4 lg:space-x-6 text-sm font-medium text-white">
-              <button class="material-symbols-rounded hover:text-emerald-400">alarm</button>
-              <button class="material-symbols-rounded hover:text-emerald-400">menu</button>
-            </div>
-          </nav>
-        </section>
-      </header>
-
-      @for (fund of funds; track $index) {
-        <app-fund-item [fund]="fund"></app-fund-item>
-      }
-      @empty {
-        <section class="mx-auto container px-4 lg:px-6">
-          <div class="w-full flex items-center justify-center h-96">
-            <div class="text-center">
-              <div class="text-4xl font-bold text-black/70">No funds yet</div>
-              <div class="text-lg font-medium text-black/80">Create a new fund to get started</div>
-            </div>
+<mat-drawer-container class="w-full h-screen" [hasBackdrop]="true">
+  <mat-drawer #menuDrawer mode="over" position="end">
+   
+  </mat-drawer>
+  <main class="relative w-full h-screen min-h-screen flex flex-col">
+    <section class="relative flex-1 pb-32">
+      <section class="w-full relative font-sans">
+        <div class="fixed right-0 bottom-0 m-4 lg:m-6 mb-20 lg:mb-24 fltbtn mx-auto container px-4 lg:px-6">
+          <div class="mx-auto container m-4 lg:m-6">
+            <button (click)="newFundBS()"
+              class="float-end p-3 bg-slate-900 hover:bg-slate-800 text-white material-symbols-rounded rounded-lg shadow-xl">add</button>
           </div>
-        </section>
-      }
+        </div>
+        <header class="w-full sticky top-0 bg-slate-900 shadow-md">
+          <section class="mx-auto container px-4 lg:px-6">
+            <nav class="h-16 flex items-center justify-between">
+              <div routerLink="/" class="cursor-pointer text-xl font-bold text-emerald-400 tracking-wide">fund<span
+                  class="font-light text-white">vault</span></div>
+              <div class="flex items-center space-x-4 lg:space-x-6 text-sm font-medium text-white">
+                <button class="material-symbols-rounded hover:text-emerald-400">alarm</button>
+                <button class="material-symbols-rounded hover:text-emerald-400" (click)="menuDrawer.toggle()">menu</button>
+              </div>
+            </nav>
+          </section>
+        </header>
+  
+        @for (fund of funds; track $index) {
+          <app-fund-item [fund]="fund"></app-fund-item>
+        }
+        @empty {
+          <section class="mx-auto container px-4 lg:px-6">
+            <div class="w-full flex items-center justify-center h-96">
+              <div class="text-center">
+                <div class="text-2xl font-bold text-slate-800">No funds yet</div>
+                <div class="text-lg font-medium text-slate-900">Create a new fund to get started</div>
+              </div>
+            </div>
+          </section>
+        }
+      </section>
     </section>
-  </section>
-  <app-navbar />
-</main>
+    <app-navbar />
+  </main>
+</mat-drawer-container>
