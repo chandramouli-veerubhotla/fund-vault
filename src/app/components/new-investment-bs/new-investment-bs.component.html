@@ -1,0 +1,43 @@
+<section class="w-full p-4">
+    <div class="flex items-center justify-center mb-3">
+        <button (click)="close(false)" class="p-2  hover:bg-slate-300 text-black rounded-full material-symbols-rounded">close</button>
+    </div>
+    <div class="w-full flex flex-col space-y-2">
+        <div class="text-center mb-4">
+            <div class="text-2xl font-bold text-slate-800">New Investment</div>
+            <p class="text-sm font-medium text-slate-500">
+                Your investment details are saved completely on your device, ensuring privacy.
+            </p>
+        </div>
+
+        <form class="text-sm font-medium space-y-3" [formGroup]="form" (ngSubmit)="saveInvestment()">
+            <div class="flex items-center">
+                <input formControlName="isCredit" id="link-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                <label for="link-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Credit Investment</label>
+            </div>
+
+            <mat-form-field class="w-full" appearance="outline">
+                <mat-label>Title</mat-label>
+                <input matInput type="text" formControlName="title" autocomplete="off" placeholder="Enter Title" >
+            </mat-form-field>
+
+            <mat-form-field class="w-full" appearance="outline">
+                <mat-label>Investment Amount (INR)</mat-label>
+                <input matInput type="number" formControlName="amount" min="1" autocomplete="off" placeholder="Enter investment amount in INR">
+            </mat-form-field>
+
+            <mat-form-field class="w-full" appearance="outline">
+                <mat-label>Annual Interest Rate (%)</mat-label>
+                <input matInput type="number" formControlName="annualInterestRate" min="0" max="100" autocomplete="off" placeholder="Enter annual interest rate (%)">
+            </mat-form-field>
+
+            <mat-form-field class="w-full" appearance="outline">
+                <mat-label>Investment Date</mat-label>
+                <input matInput [matDatepicker]="picker"  (focus)="picker.open()" formControlName="date" autocomplete="off" placeholder="Enter investment date">
+            </mat-form-field>
+            
+            <button type="submit" [disabled]="!form.valid" class="w-full py-3.5 bg-slate-900 hover:bg-slate-800 disabled:bg-slate-200 font-medium text-white rounded-lg">Save Investment</button>
+        </form>
+        <mat-datepicker #picker></mat-datepicker>
+    </div>
+</section>

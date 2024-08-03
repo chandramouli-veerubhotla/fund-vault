@@ -7,21 +7,27 @@ import { RouterLink } from '@angular/router';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { Fund, FundService } from '../../services/fund.service';
 import { NewFundBsComponent } from '../../components/new-fund-bs/new-fund-bs.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-my-funds-page',
   standalone: true,
-  imports: [MatBottomSheetModule, MatSidenavModule, RouterLink, NavbarComponent, FundItemComponent],
+  imports: [FormsModule, MatBottomSheetModule, MatSidenavModule, RouterLink, NavbarComponent, FundItemComponent],
   templateUrl: './my-funds-page.component.html',
   styleUrl: './my-funds-page.component.scss'
 })
 export class MyFundsPageComponent implements OnInit {
 
+  fundSelectable: boolean = false
   funds!: Array<Fund>
   constructor(private service: FundService, private bs: MatBottomSheet) { }
 
   ngOnInit(): void {
     this.fetchFunds()
+  }
+
+  toggleSelectable() {
+    this.fundSelectable = !this.fundSelectable
   }
 
   fetchFunds() {

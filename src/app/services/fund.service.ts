@@ -1,7 +1,6 @@
-import { A } from '@angular/cdk/keycodes';
 import { Injectable } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
-import { first, from, last, map, Observable, of, switchMap, tap } from 'rxjs';
+import { first, from, map, Observable, of, switchMap } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
 export interface Fund {
@@ -11,7 +10,7 @@ export interface Fund {
   defaultAnnualInterestRate: number;
   dateCreated?: Date;
   lastUpdated?: Date;
-  latestMessage?: string
+  latestMessage?: string;
 }
 
 export interface Investment {
@@ -29,36 +28,39 @@ export interface Investment {
 })
 export class FundService {
 
-  constructor(private db: NgxIndexedDBService) {
-   }
+  constructor(private db: NgxIndexedDBService) { }
 
-  private sortAndGroupInvestments(investments: Investment[]): { [key: string]: Investment[] } {
-    // Sort investments by date in descending order
-    investments.sort((a, b) => (a.date?.getTime() ?? 0) - (b.date?.getTime() ?? 0));
+  private sortAndGroupInvestments(investments: Investment[]): Map<string, Investment[]> {
+    // Parse dates and sort investments by date in ascending order (latest investments last)
+    investments.sort((a, b) => {
+      const dateA = new Date(a.date ?? 0).getTime();
+      const dateB = new Date(b.date ?? 0).getTime();
+      return dateA - dateB;
+    });
   
-    // Group investments by full date (YYYY-MM-DD)
-    const groupedInvestments: { [key: string]: Investment[] } = investments.reduce((acc, investment) => {
+    // Group investments by normalized date (ISO string as key)
+    const groupedInvestments: Map<string, Investment[]> = investments.reduce((acc, investment) => {
       const date = investment.date ? new Date(investment.date) : new Date();
-      const fullDate = `${date.getDate().toString().padStart(2, '0')}-${date.toLocaleString('default', { month: 'long' })}-${date.getFullYear()}`; // Format as "dd-MonthName-yyyy"
-      if (!acc[fullDate]) {
-        acc[fullDate] = [];
+      // Normalize date to remove time part and use ISO string
+      const normalizedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate()).toISOString();
+      if (!acc.has(normalizedDate)) {
+        acc.set(normalizedDate, []);
       }
-      acc[fullDate].push(investment);
+      acc.get(normalizedDate)!.push(investment);
       return acc;
-    }, {} as { [key: string]: Investment[] });
+    }, new Map<string, Investment[]>());
   
     return groupedInvestments;
   }
-  
 
   listFunds(): Observable<Fund[]> { 
     return this.db.getAll('funds');
   }
 
-  listInvestments(fundId: string) {
-    return this.db.getAllByIndex<Investment>('investments', 'fundId', IDBKeyRange.only(fundId)) .pipe(
+  listInvestments(fundId: string): Observable<Map<string, Investment[]>> {
+    return this.db.getAllByIndex<Investment>('investments', 'fundId', IDBKeyRange.only(fundId)).pipe(
       map(investments => this.sortAndGroupInvestments(investments))
-    )
+    );
   }
 
   getFund(id: string): Observable<Fund | null> {
@@ -69,7 +71,7 @@ export class FundService {
     return this.db.getByKey<Investment | null>('investments', investmentId);
   }
 
-  checkFundTitleExists(title: string) {
+  checkFundTitleExists(title: string): Observable<boolean> {
     return this.db.getByIndex<Fund>('funds', 'title', title).pipe(
      map((fund: Fund | null) => {
       return fund != null;
@@ -85,7 +87,7 @@ export class FundService {
     return this.db.add('funds', fund);
   }
 
-  saveInvestment(investment: Investment) {
+  saveInvestment(investment: Investment): Observable<Investment> {
     investment.id = uuidv4();
     return this.getFund(investment.fundId).pipe(
       switchMap(fund => {
@@ -94,13 +96,15 @@ export class FundService {
         }
         return this.db.add<Investment>('investments', investment).pipe(
           switchMap(() => {
-            let updateMessage = `Rs. ${investment.amount}/-`
+            let updateMessage = `Rs. ${investment.amount}/-`;
             if (investment.isCredit) {
               updateMessage += ' credited successfully!';
             } else {
               updateMessage += ' debited successfully!';
             }
-            return this.updateFund(fund, updateMessage);
+            return this.updateFund(fund, updateMessage).pipe(
+              map(() => investment)
+            );
           })
         );
       })
@@ -141,4 +145,13 @@ export class FundService {
     return this.db.delete<(Fund | null)>('funds', id);
   }
 
+  getInvestmentHistory(): Observable<Investment[]> {
+    return this.db.getAll<Investment>('investments').pipe(
+      map(investments => investments.sort((a, b) => {
+        const dateA = new Date(a.date ?? 0).getTime();
+        const dateB = new Date(b.date ?? 0).getTime();
+        return dateA - dateB; // Sort by date in ascending order
+      }))
+    );
+  }
 }

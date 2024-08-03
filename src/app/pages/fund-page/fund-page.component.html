@@ -22,7 +22,7 @@
       @for(dateGroup of investments | keyvalue; track $index) {
         <div class="relative space-y-2 bg-white">
           <div class="sticky top-0 w-full text-xs font-medium flex items-center justify-center">
-            <span class="bg-slate-900 text-white px-3 py-2 rounded-lg uppercase font-medium">{{dateGroup.key}}</span>
+            <span class="bg-slate-900 text-white px-3 py-2 rounded-lg uppercase font-medium">{{dateGroup.key | date: 'fullDate'}}</span>
           </div>
           <div>
             @for (investment of dateGroup.value; track $index) {
@@ -45,7 +45,7 @@
     <footer class="w-full fixed bottom-0 border-t border-slate-300/50">
       <div class="mx-auto container px-4 py-2 lg:px-6 text-slate-400">
         <div class="flex gap-2">
-          <input type="number" autocomplete="off" class="w-full px-5 py-2.5 rounded-lg bg-slate-200/50 border border-slate-200/50 focus:outline-none text-sm font-medium text-black" placeholder="Type amount..." />
+          <input type="number" [(ngModel)]="inputAmount" autocomplete="off" class="w-full px-5 py-2.5 rounded-lg bg-slate-200/50 border border-slate-200/50 focus:outline-none text-sm font-medium text-black" placeholder="Type amount..." />
           <button (click)="newInvestment()" class="material-symbols-rounded bg-slate-900 hover:bg-slate-800 text-white rounded-lg p-2.5">send</button>
         </div>
       </div>

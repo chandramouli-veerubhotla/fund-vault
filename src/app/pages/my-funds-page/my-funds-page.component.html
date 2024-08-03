@@ -23,20 +23,45 @@
             </nav>
           </section>
         </header>
-  
-        @for (fund of funds; track $index) {
-          <app-fund-item [fund]="fund"></app-fund-item>
-        }
-        @empty {
-          <section class="mx-auto container px-4 lg:px-6">
-            <div class="w-full flex items-center justify-center h-96">
-              <div class="text-center">
-                <div class="text-2xl font-bold text-slate-800">No funds yet</div>
-                <div class="text-lg font-medium text-slate-900">Create a new fund to get started</div>
-              </div>
-            </div>
+
+        <section class="mx-auto container px-4 lg:px-6 my-4">
+          <section class="w-full h-48 lg:h-64 bg-gradient-to-tr from-emerald-400 to-slate-900 rounded-lg">
+
           </section>
-        }
+        </section>
+        
+
+        <section class="relative">
+          <div class="w-full relative">
+            <section class="mx-auto container px-4 lg:px-6">
+              <nav class="h-16 flex items-center justify-between">
+                <div class="text-xl font-bold text-black tracking-wide">My Funds</div>
+                <div class="flex items-center space-x-4 lg:space-x-6 text-sm font-medium text-black">
+                  <button (click)="toggleSelectable()" class="p-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 material-symbols-rounded">check_box</button>
+                  <button (click)="fetchFunds()" class="p-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 material-symbols-rounded">refresh</button>
+                  @if (fundSelectable) {
+                    <button class="p-2 rounded-lg bg-red-100 text-red-700 hover:bg-red-200 material-symbols-rounded">delete</button>
+                  }
+                </div>
+              </nav>
+            </section>
+          </div>
+          @for (fund of funds; track $index) {
+            <app-fund-item [fund]="fund" [selectable]="fundSelectable"></app-fund-item>
+          }
+          @empty {
+            <section class="mx-auto container px-4 lg:px-6">
+              <div class="w-full flex items-center justify-center h-96">
+                <div class="text-center">
+                  <div class="text-2xl font-bold text-slate-800">No funds yet</div>
+                  <div class="text-lg font-medium text-slate-900">Create a new fund to get started</div>
+                </div>
+              </div>
+            </section>
+          }
+        </section>
+  
+        
       </section>
     </section>
     <app-navbar />

@@ -1,6 +1,6 @@
 @if (investment != null) {
     <div class="w-full my-2 flex items-center gap-2" [ngClass]="{'flex-row-reverse': isRightAligned}">
-        <div class="w-4/5 bg-white border border-slate-300 rounded-lg p-1">
+        <div class="w-4/5 lg:w-1/2 bg-white border border-slate-300 rounded-lg p-1">
             @if(!isRightAligned) {
                 <div class="px-2 text-xs space-y-1 mb-2">
                     <div class="font-light text-black tracking-wide"><span class="font-bold text-emerald-600">fund</span>Vault</div>
@@ -10,13 +10,13 @@
                     </div>
                 </div>
             }
-            <div class="w-full max-h-48  rounded-lg px-2 pt-2 pb-4 space-y-2" [ngClass]="{'bg-emerald-100/50': investment.isCredit, 'bg-red-100/50': !investment.isCredit}">
+            <div class="w-full max-h-48  rounded-lg px-2 pt-2 pb-4 space-y-2" [ngClass]="{'bg-red-100/50': investment.isCredit, 'bg-emerald-100/50': !investment.isCredit}">
                 <div class="text-wrap line-clamp-2 text-lg font-medium text-slate-800">{{investment.title}}</div>
-                <div class="text-xl text-emerald-600 font-bold" [ngClass]="{'text-emerald-600': investment.isCredit, 'text-red-600': !investment.isCredit}">
-                    @if(investment.isCredit) {
-                        + {{investment.amount | currency: 'USD'}}
+                <div class="text-xl text-emerald-600 font-bold" [ngClass]="{'text-red-600': investment.isCredit, 'text-emerald-600': !investment.isCredit}">
+                    @if(!investment.isCredit) {
+                        + {{investment.amount | currency: 'INR'}}
                     } @else {
-                        - {{investment.amount | currency: 'USD'}}
+                        - {{investment.amount | currency: 'INR'}}
                     }
                 </div>
             </div>

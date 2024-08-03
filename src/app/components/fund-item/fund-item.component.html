@@ -1,7 +1,10 @@
 @if (fund != null) {
-    <section [routerLink]="['/fund', fund.id]" matRipple class="w-full py-4 font-sans hover:bg-slate-100">
+    <section (click)="onClick()" matRipple class="w-full no-select py-4 hover:bg-slate-100">
         <section class="mx-auto container px-4 lg:px-6">
             <div class="w-full flex items-start gap-2">
+                @if (selectable) {
+                    <input type="checkbox" [checked]="selected" class="checked:bg-slate-900 checked:text-white bg-slate-900 text-white" />
+                }                
                 <div class="p-4 text-md rounded-lg bg-slate-900 font-semibold text-white uppercase">{{fund.title.substring(0,2)}}</div>
                 <div class="flex-1 overflow-hidden space-y-1">
                     <!-- Name and date -->
