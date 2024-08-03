@@ -35,7 +35,7 @@ jobs:
         if: success()
         uses:  JamesIves/github-pages-deploy-action@v4
         with:
-            folder: dist/browser
+            folder: dist/fund-vault/browser
             branch: gh-pages
             token: ${{ secrets.GIT_TOKEN }}
             clean: true
