@@ -26,10 +26,10 @@ jobs:
           cache-dependency-path: package-lock.json
 
       - name: Install dependencies
-        uses: npm install
+        run: npm install
 
       - name: Build
-        uses: npm run build:prod
+        run: npm run build:prod
 
       - name: Deploy to Github Pages
         if: success()
